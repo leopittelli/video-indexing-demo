@@ -1,0 +1,24 @@
+{
+  "name": "video-indexing-demo",
+  "version": "1.0.0",
+  "description": "Video intelligence API demo",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "video",
+    "intelligence",
+    "api",
+    "google",
+    "cloud",
+    "functions",
+    "serverless"
+  ],
+  "author": "Leonardo Pittelli",
+  "license": "ISC",
+  "dependencies": {
+    "@google-cloud/datastore": "^1.1.0",
+    "@google-cloud/video-intelligence": "^0.4.0"
+  }
+}
