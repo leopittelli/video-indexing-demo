@@ -8,6 +8,7 @@ var searchMessage = document.getElementById("search-message");
 
 if (q) {
 	document.getElementById("search-input").value=q;
+	searchMessage.style.display = "block";
 	searchMessage.innerText = "Buscando: \"" + q + "\"";
 	fetch(
 		"https://us-central1-video-indexing-demo.cloudfunctions.net/searchVideo?q="+q)
