@@ -1,62 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=5.0">
-    <meta name="theme-color" content="#3A475B"/>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=5.0">
+		<meta name="theme-color" content="#3A475B"/>
 
-    <title>Home - Video indexing demo</title>
+		<title>Home - Video indexing demo</title>
 
-    <!-- Bootstrap core CSS -->
-    <link href="./css/bootstrap.css" rel="stylesheet">
+		<!-- Bootstrap core CSS -->
+		<link href="./css/bootstrap.css" rel="stylesheet">
 
-	<link href="./css/video-js.css" rel="stylesheet">
+		<link href="./css/video-js.css" rel="stylesheet">
 
-    <!-- Custom styles for this template -->
-    <link href="./css/custom.css" rel="stylesheet">
-  </head>
+		<!-- Custom styles for this template -->
+		<link href="./css/custom.css" rel="stylesheet">
+	</head>
 
-  <body>
+	<body>
+		<nav class="navbar navbar-dark bg-dark">
+			<a class="navbar-brand" href="/">Video indexing demo</a>
+			<form class="form-inline" method="GET">
+				<input id="search-input" class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Buscar" name="q">
+				<button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Buscar</button>
+			</form>
+		</nav>
 
-    <nav class="navbar navbar-dark bg-dark">
-      <a class="navbar-brand" href="/">Video indexing demo</a>
-    </nav>
-
-    <div class="main-container">
-      <div class="jumbotron jumbotron-fluid">
-        <div class="container">
-			<h1 class="display-3">Video indexing</h1>
-			<p class="lead"><a href="https://cloud.google.com/video-intelligence/">Video intelligence API</a> demo.</p>
-        </div>
-      </div>
-      <div class="container">
-      	<div class="row justify-content-center">
-			<div class="col col-sm-10 mb-4">
-				<button class="btn btn-primary" disabled id="play-button">Play</button>
-				<button class="btn btn-primary" disabled id="pause-button">Pause</button>
-				<button class="btn btn-primary" disabled id="next-segment-button">Next segment</button>
+		<div class="main-container">
+			<div class="jumbotron jumbotron-fluid">
+				<div class="container">
+					<h1 class="display-3">Video indexing</h1>
+					<p class="lead"><a href="https://cloud.google.com/video-intelligence/">Video intelligence API</a> demo.</p>
+				</div>
 			</div>
+			<div class="container">
+				<div class="row justify-content-center">
+					<div class="col col-sm-10 mb-4">
+						<div class="alert alert-info" role="alert" id="search-message">
+						</div>
+					</div>
+				</div>
+				<div class="row justify-content-center">
+					<div class="col col-sm-10 mb-4">
+						<button class="btn btn-primary" disabled id="play-button">Play</button>
+						<button class="btn btn-primary" disabled id="pause-button">Pause</button>
+						<button class="btn btn-primary" disabled id="next-segment-button">Next segment</button>
+					</div>
+				</div>
+				<div class="row justify-content-center">
+					<div class="col col-sm-10 mb-4">
+						<video id="video-player" class="video-js" controls preload="auto">
+							<p class="vjs-no-js">
+								Para ver este video habilita JavaScript, y actualiza a un navegador que <a href="http://videojs.com/html5-video-support/" target="_blank">soporte video HTML5</a>
+							</p>
+						</video>
+					</div>
+				</div>
+			</div><!-- /.container -->
 		</div>
-        <div class="row justify-content-center">
-			<div class="col col-sm-10">
-				<video id="video-player" class="video-js" controls preload="auto">
-					<p class="vjs-no-js">
-						Para ver este video habilita JavaScript, y actualiza a un navegador que <a href="http://videojs.com/html5-video-support/" target="_blank">soporte video HTML5</a>
-					</p>
-				</video>
+
+		<footer class="footer bg-dark">
+			<div class="container py-4">
+				<span class="text-muted">Video indexing demo</span>
 			</div>
-        </div>
-      </div><!-- /.container -->
-    </div>
+		</footer>
 
-    <footer class="footer bg-dark">
-      <div class="container py-4">
-        <span class="text-muted">Video indexing demo</span>
-      </div>
-    </footer>
-
-	<script src="./js/video.js"></script>
-    <script src="./js/scripts.js"></script>
-  </body>
+		<script src="./js/video.js"></script>
+		<script src="./js/scripts.js"></script>
+	</body>
 </html>
 

@@ -4,7 +4,11 @@ if (search) {
 	q = search.substring(0, search.length).split("=")[1];
 }
 
+var searchMessage = document.getElementById("search-message");
+
 if (q) {
+	document.getElementById("search-input").value=q;
+	searchMessage.innerText = "Buscando: \"" + q + "\"";
 	fetch(
 		"https://us-central1-video-indexing-demo.cloudfunctions.net/searchVideo?q="+q)
 		.then(response => response.json())
@@ -36,7 +40,7 @@ pauseButton.addEventListener("click", function() {
 
 nextSegmentButton.addEventListener("click", function() { 
 	activeSegmentIndex++;
-	if (videosToShow.length > activeSegmentIndex) {
+	if (activeSegmentIndex < videosToShow.length) {
 		playNextSegment();
 	} else {
 		nextSegmentButton.disabled = true;
@@ -59,8 +63,14 @@ function setupPlayer(videos) {
 	videosToShow = [];
 	activeVideoIndex = 0;
 	activeSegmentIndex = 0;
+	searchMessage.innerText = "Resultados para: \"" + q + "\"";
 
 	if (videos["shotLabelAnnotations"].length === 0) {
+		pauseButton.disabled = true;
+		playButton.disabled = true;
+		nextSegmentButton.disabled = true;
+
+		searchMessage.innerText = "Sin resultados para: \"" + q + "\"";
 		return;
 	}
 
@@ -78,16 +88,19 @@ function setupPlayer(videos) {
 
 function playNextSegment() {
 	var video = videosToShow[activeSegmentIndex];
+
 	if (videoPlayer.currentSrc() !== video.file) {
 		videoPlayer.src({type: "video/mp4", src: video.file});
 	}
-	
-	console.log(video.start)
+
 	videoPlayer.currentTime(video.start);
 
 	stopTime = video.end;
 	videoPlayer.on('timeupdate', function(e) {
 		if (videoPlayer.currentTime() >= stopTime) {
+			if (activeSegmentIndex+1 >=videosToShow.length) {
+				nextSegmentButton.disabled = true;
+			}
 			videoPlayer.pause();
 	    }
 	});
