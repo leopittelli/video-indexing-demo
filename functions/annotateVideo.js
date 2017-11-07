@@ -25,12 +25,12 @@ function _annotateVideo (bucket, fileName) {
 	// Execute request
 	return client.annotateVideo(request)
 	.then(results => {
-	    const operation = results[0];
-	    console.log(
-	      'Waiting for operation to complete... (this may take a few minutes)'
-	    );
-    	return operation.promise();
-  })
+		const operation = results[0];
+		console.log(
+			'Waiting for operation to complete... (this may take a few minutes)'
+		);
+		return operation.promise();
+	})
 }
 
 function _saveLabels(kind, fileLink, labels) {
@@ -64,8 +64,8 @@ function _saveLabel(kind, label) {
 	const transaction = datastore.transaction();
 	const labelKey = datastore.key([kind, label.description]);
 
-  	return transaction.run()
-	    .then(() => transaction.get(labelKey))
+	return transaction.run()
+		.then(() => transaction.get(labelKey))
 		.then((results) => {
 			const l = results[0];
 			if (l) {
@@ -75,8 +75,8 @@ function _saveLabel(kind, label) {
 				transaction.save({key: labelKey, data: label});
 			}
 			return transaction.commit();
-	    })
-	    .catch((e) => transaction.rollback());
+		})
+		.catch((e) => transaction.rollback());
 }
 
 /**
@@ -91,7 +91,7 @@ module.exports = function annotateVideo(event, callback) {
 	if (file.resourceState === 'not_exists') {
 		console.log(`File ${file.name} deleted.`);
 		callback();	
-	} else {
+	} else if (file.metageneration === '1') {
 		_annotateVideo(file.bucket, file.name)
 			.then(results => {
 				const annotations = results[0].annotationResults[0];
@@ -105,6 +105,8 @@ module.exports = function annotateVideo(event, callback) {
 			.catch(err => {
 				console.log(err)
 				throw new Error('Error: ', err);
-	    	});
+			});
+	} else {
+		console.log(`File ${file.name} metadata updated.`);
 	}
 };
