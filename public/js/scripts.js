@@ -92,6 +92,11 @@ function playNextSegment() {
 
 	if (videoPlayer.currentSrc() !== video.file) {
 		videoPlayer.src({type: "video/mp4", src: video.file});
+		var progress = function(){ 
+			videoPlayer.currentTime(video.start)
+			videoPlayer.off('progress', progress);
+		};
+		videoPlayer.on('progress', progress);
 	}
 
 	videoPlayer.currentTime(video.start);
