@@ -1,4 +1,4 @@
-const search = window.location.search;
+const search = decodeURIComponent(window.location.search);
 let q = "";
 if (search) {
 	q = search.substring(0, search.length).split("=")[1];
